@@ -27,7 +27,10 @@ module "eks" {
 
   # Kitchen tools
   addons = {
-    vpc-cni                = { before_compute = true }
+    vpc-cni = {
+      before_compute       = true
+      configuration_values = jsonencode({ enableNetworkPolicy = "true" })
+    }
     eks-pod-identity-agent = { before_compute = true }
     kube-proxy             = {}
     coredns                = {}
