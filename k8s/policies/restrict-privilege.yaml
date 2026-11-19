@@ -1,0 +1,25 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: restrict-privilege
+spec:
+  background: true
+  rules:
+    - name: no-privileged-no-escalation
+      match:
+        any:
+          - resources:
+              kinds: [Pod]
+      exclude:
+        any:
+          - resources:
+              namespaces: [kube-system, kyverno, argocd]
+      validate:
+        failureAction: Enforce
+        message: "Containers must set allowPrivilegeEscalation: false and may not be privileged."
+        pattern:
+          spec:
+            containers:
+              - securityContext:
+                  allowPrivilegeEscalation: false
+                  =(privileged): false
