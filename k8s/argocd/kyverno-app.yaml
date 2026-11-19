@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://kyverno.github.io/kyverno/
     chart: kyverno
-    targetRevision: "PUT-CHART-VERSION-HERE"   # from helm search, e.g. 3.x.x
+    targetRevision: "3.10.0"   # from helm search, e.g. 3.x.x
     helm:
       releaseName: kyverno
   destination:
